@@ -3,3 +3,10 @@
     <h1>This is an about page</h1>
   </div>
 </template>
+
+<style scoped>
+.about {
+  margin-top: 50px;
+  margin-left: 20%;
+}
+</style>

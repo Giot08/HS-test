@@ -1,0 +1,15 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: var(--text);
+}
+.router-link {
+    text-decoration: none;
+}
+.fix-view{
+    margin: 39px auto auto auto;
+    max-width: 1024px;
+}
+.darkmode{
+    background-color: var(--darkColor);
+}

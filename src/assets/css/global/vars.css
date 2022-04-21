@@ -1,0 +1,13 @@
+:root {
+  /* colors */
+  --mainColor: #10004F;
+  --secondaryColor:#ab2a3e;
+  --darkColor: #333333;
+  --swarningColor: #fc9e22;
+  --dangerColor: #e8114b;
+  --succesColor: #04aa6b;
+  /* fonts */
+  --title: "Montserrat", sans-serif;
+  --special: "Josefin Sans", sans-serif;
+  --text: "Open Sans", sans-serif;
+}

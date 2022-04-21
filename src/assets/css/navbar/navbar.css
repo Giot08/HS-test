@@ -1,0 +1,155 @@
+.navbar--background {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+  background-color: var(--mainColor);
+}
+
+.navbar {
+  width: 1024px;
+  margin: auto;
+  padding: 0px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar__navegation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo__container {
+  position: absolute;
+  top: 0;
+  background-color: var(--secondaryColor);
+  width: 80px;
+  height: 150px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 90%, 0 100%);
+}
+
+.logo__container--text {
+  text-align: center;
+  margin-top: 15px;
+  color: white;
+}
+
+.logo__container--img {
+  position: absolute;
+  top: 40px;
+  left: 5px;
+  display: block;
+  font-size: 70px;
+  color: white;
+}
+
+.navbar__navegation--link {
+  margin-left: 100px;
+  color: white;
+}
+.link {
+  display: block;
+  float: left;
+  color: white;
+  font-weight: 600;
+  height: 100%;
+  padding: 15px 10px;
+  cursor: pointer;
+}
+.link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.navbar__settings {
+  height: 200%;
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  margin-right: -30px;
+}
+.navbar__settings button {
+  background: none;
+  border: none;
+  padding: 0 2px;
+}
+.search__input {
+  padding: 5px 0;
+  border: none;
+}
+.setting--icon {
+  color: white;
+  margin: 0 15px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.sub-nav {
+  position: absolute;
+  top: 52px; left: 0; right: 0;
+  margin: auto;
+  width: 1024px;
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
+  background-color: white;
+}
+
+.pin {
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+}
+
+.pin-book {
+  top: -5px;
+  left: 125px;
+}
+.pin-trips {
+  top: -5px;
+  left: 195px;
+}
+.pin-experience {
+  top: -5px;
+  left: 290px;
+}
+
+.sub-nav__container {
+  display: flex;
+  justify-content: flex-start;
+  padding: 30px 0 30px 110px;
+  background-color: white;
+}
+.sub-nav--display {
+  display: none;
+}
+.sub-nav__container--box {
+  margin-right: 60px;
+}
+.sub-nav__container--box h2 {
+  font-size: 20px;
+  color: var(--darkColor);
+  font-family: var(--special);
+  letter-spacing: 1px;
+}
+.sub-nav__container--box nav {
+  display: flex;
+  flex-direction: column;
+}
+.sub-nav--link {
+  color: var(--secondaryColor);
+  text-decoration: none;
+  transition: 0.3s;
+}
+.sub-nav--link:hover {
+  font-weight: 500;
+  transform: scale(110%);
+  margin-left: 10px;
+}
+.book img {
+  max-width: 250px;
+  border-radius: 5px;
+  margin: 0 -100px;
+}
