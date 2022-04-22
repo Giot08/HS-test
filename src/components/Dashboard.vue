@@ -26,29 +26,26 @@
 
         <div class="form-flex">
           <input
-            @keyup="procesarInput"
-            @focus="from()"
-            @blur="from()"
+            id="from"
             type="text"
-            v-model="texto"
+            v-model="Ticket.From"
             placeholder="From"
           />
 
           <input
-            @focus="to()"
-            @blur="to()"
             type="text"
+            v-if="Ticket.Trip === 'return'"
             v-model="Ticket.To"
             placeholder="To"
           />
 
-          <select v-model="Ticket.Trip" name="select">
-            <option value="" selected disabled>Trip</option>
-            <option value="return">Return</option>
+          <select v-model="Ticket.Trip">
+            <option value="" disabled>Trip</option>
             <option value="one_way">One Way</option>
+            <option value="return">Return</option>
           </select>
-          <select v-model="Ticket.Class" name="select">
-            <option value="" selected disabled>Class</option>
+          <select v-model="Ticket.Class">
+            <option value="" disabled>Class</option>
             <option value="return">Economy</option>
             <option value="one_way">Premium</option>
           </select>
@@ -66,7 +63,7 @@
                 type="date"
               />
             </div>
-            <div>
+            <div v-if="Ticket.Trip === 'return'">
               <label for="">Return</label>
               <input
                 v-model="Ticket.Schedule.Return"
@@ -85,14 +82,14 @@
                 <h4>Adults</h4>
                 <div class="passenger-selection">
                   <i
-                    @click="decreaseAdult"
+                    @click="adultQTY('decrease')"
                     class="passenger-btn fa-solid fa-minus"
                   ></i>
                   <p class="passenger-quantity">
                     {{ Ticket.Passenger.Adults }}
                   </p>
                   <i
-                    @click="increaseAdult"
+                    @click="adultQTY('increase')"
                     class="passenger-btn fa-solid fa-plus"
                   ></i>
                 </div>
@@ -102,14 +99,14 @@
                 <h4>Child</h4>
                 <div class="passenger-selection">
                   <i
-                    @click="decreaseChilds"
+                    @click="childQTY('decrease')"
                     class="passenger-btn fa-solid fa-minus"
                   ></i>
                   <p class="passenger-quantity">
                     {{ Ticket.Passenger.Childs }}
                   </p>
                   <i
-                    @click="increaseChilds"
+                    @click="childQTY('increase')"
                     class="passenger-btn fa-solid fa-plus"
                   ></i>
                 </div>
@@ -119,14 +116,14 @@
                 <h4>Infant</h4>
                 <div class="passenger-selection">
                   <i
-                    @click="decreaseInfants"
+                    @click="infantQTY('decrease')"
                     class="passenger-btn fa-solid fa-minus"
                   ></i>
                   <p class="passenger-quantity">
                     {{ Ticket.Passenger.Infants }}
                   </p>
                   <i
-                    @click="increaseInfants"
+                    @click="infantQTY('increase')"
                     class="passenger-btn fa-solid fa-plus"
                   ></i>
                 </div>
@@ -137,17 +134,29 @@
         <button @click="bookNow" class="book--btn">Book now</button>
       </form>
 
-      <div class="flightsFrom hide">
-        <div v-for="country in countries" :key="country.name">
+      <select class="flightsFrom hide" v-model="Ticket.From">
+        <option value="" disabled selected>Origin: {{ Ticket.From }}</option>
+        <option
+          class="country-data"
+          v-for="country in countries"
+          :key="country.country"
+          :value="`(${country.alpha3Code}) - ${country.capital} Airport, ${country.name}`"
+        >
           <CountryData :country="country" />
-        </div>
-      </div>
+        </option>
+      </select>
 
-      <div class="flightsTo hide">
-        <div v-for="country in countries" :key="country.name">
+      <select class="flightsTo hide" v-model="Ticket.To">
+        <option value="" disabled selected>Destination: {{ Ticket.To }}</option>
+        <option
+          class="country-data"
+          v-for="country in countries"
+          :key="country.country"
+          :value="`(${country.alpha3Code}) - ${country.capital},  ${country.name})`"
+        >
           <CountryData :country="country" />
-        </div>
-      </div>
+        </option>
+      </select>
     </div>
   </div>
 </template>
@@ -181,54 +190,63 @@ export default {
       },
     };
   },
+
+  mounted() {
+    const from = document.getElementById("from");
+    const fromList = document.querySelector(".flightsFrom");
+
+    from.onfocus = () => {
+      fromList.classList.remove("hide");
+    };
+    window.onchange = () => {
+      fromList.classList.add("hide");
+    };
+    window.onscroll = () => {
+      fromList.classList.add("hide");
+    };
+  },
   methods: {
-    bookNow(){
-      console.log(this.Ticket)
-    },
-    from() {
-      const from = document.querySelector(".flightsFrom");
-      from.classList.toggle("hide");
-    },
-    to() {
-      const to = document.querySelector(".flightsTo");
-      to.classList.toggle("hide");
-    },
-    decreaseAdult() {
-      if (this.Ticket.Passenger.Adults > 1) {
-        this.Ticket.Passenger.Adults--;
+    bookNow() {
+      if (this.Ticket.From === this.Ticket.To) {
+        alert("Origin and destination have to be different!");
       } else {
-        alert(`Adults can't be 0`);
+        console.log(this.Ticket);
       }
     },
-    increaseAdult() {
-      if (this.Ticket.Passenger.Adults < 9) {
-        this.Ticket.Passenger.Adults++;
+    adultQTY(x) {
+      const ToDo = x;
+      if (ToDo === "decrease") {
+        if (this.Ticket.Passenger.Adults > 1) {
+          this.Ticket.Passenger.Adults--;
+        } else {
+          alert(`Adults can't be 0`);
+        }
+      } else if (ToDo === "increase") {
+        if (this.Ticket.Passenger.Adults < 9) {
+          this.Ticket.Passenger.Adults++;
+        } else {
+          alert("You can only buy a max of 9 tickets for adults");
+        }
       } else {
-        alert("You can only buy a max of 9 tickets for adults");
       }
     },
-    decreaseChilds() {
-      if (this.Ticket.Passenger.Childs > 0) {
+    childQTY(x) {
+      const ToDo = x;
+      if (ToDo === "decrease" && this.Ticket.Passenger.Childs > 0) {
         this.Ticket.Passenger.Childs--;
-      }
-    },
-    increaseChilds() {
-      if (this.Ticket.Passenger.Childs < 9) {
+      } else if (ToDo === "increase" && this.Ticket.Passenger.Childs < 9) {
         this.Ticket.Passenger.Childs++;
       } else {
         alert("Can only book tickets for a maximum of 9 childs");
       }
     },
-    decreaseInfants() {
-      if (this.Ticket.Passenger.Infants > 0) {
-        this.Ticket.Passenger.Infants--;
-      }
-    },
-    increaseInfants() {
-      const div =
+    infantQTY(x) {
+      const ToDo = x;
+      const infantLimit =
         this.Ticket.Passenger.Adults / (this.Ticket.Passenger.Infants + 1);
-
-      if (div >= 2) {
+      if (ToDo === "decrease" && this.Ticket.Passenger.Infants > 0) {
+        this.Ticket.Passenger.Infants--;
+      } else if (ToDo === "increase" && infantLimit >= 2) {
         this.Ticket.Passenger.Infants++;
       } else {
         alert("Is only valid 1 infant per 2 adults");
@@ -242,7 +260,7 @@ export default {
       return store.getters.topPaisesPoblacion;
     });
     const procesarInput = () => {
-      console.log(texto.value)
+      console.log(texto.value);
       store.dispatch("filtroNombre", texto.value);
     };
     onMounted(async () => {
