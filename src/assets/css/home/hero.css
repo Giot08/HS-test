@@ -1,0 +1,42 @@
+.hero {
+  background-image: url("https://images.pexels.com/photos/2193300/pexels-photo-2193300.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+  width: 100%;
+  height: 400px;
+  background-position: center;
+  background-size: cover;
+}
+.hero--dark {
+  background-color: rgba(0, 0, 0, 0.5);
+  min-width: 100%;
+  height: 100%;
+}
+.hero--container {
+  width: 1024px;
+  padding-top: 180px;
+  margin: auto;
+}
+.hero--title {
+  color: white;
+  font-family: var(--special);
+  letter-spacing: 6px;
+}
+.country-name {
+  margin-top: 10px;
+  font-size: 40px;
+  font-family: var(--title);
+}
+.hero--description {
+  color: white;
+  font-family: var(--special);
+}
+.hero--btn {
+  color: white;
+  text-decoration: none;
+  background: var(--secondaryColor);
+  padding: 15px;
+  float: right;
+  transition: 0.3s;
+}
+.hero--btn:hover {
+  background-color: #862937;
+}

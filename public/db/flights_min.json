@@ -1,0 +1,44 @@
+[
+  {
+    "name": "China",
+    "alpha3Code": "CHN",
+    "capital": "Beijing"
+  },
+  {
+    "name": "United States of America",
+    "alpha3Code": "USA",
+    "capital": "Washington, D.C."
+  },
+
+  {
+    "name": "Germany",
+    "alpha3Code": "DEU",
+    "capital": "Berlin"
+  },
+  {
+    "name": "Austria",
+    "alpha3Code": "AUT",
+    "capital": "Vienna"
+  },
+
+  {
+    "name": "Australia",
+    "alpha3Code": "AUS",
+    "capital": "Canberra"
+  },
+  {
+    "name": "Chile",
+    "alpha3Code": "CHL",
+    "capital": "Santiago"
+  },
+  {
+    "name": "Mexico",
+    "alpha3Code": "MEX",
+    "capital": "Mexico City"
+  },
+  {
+    "name": "France",
+    "alpha3Code": "FRA",
+    "capital": "Paris"
+  }
+]

@@ -5,7 +5,6 @@
         <div class="navbar__navegation">
           <div class="navbar__navegation--logo">
             <router-link
-              @click="reload()"
               class="logo__container router-link"
               to="/"
             >
@@ -31,7 +30,7 @@
             >
               Experience
             </div>
-            <router-link @click="reload()" class="link router-link" to="/help"
+            <router-link class="link router-link" to="/help"
               >Help Center</router-link
             >
           </div>
@@ -197,16 +196,13 @@ export default {
     };
   },
   methods: {
-    reload() {
-      location.reload();
-    },
     bookMenuDisplay() {
       tripsMenu.classList.add("sub-nav--display");
       experienceMenu.classList.add("sub-nav--display");
 
       bookMenu.classList.toggle("sub-nav--display");
 
-      bookMenu.onmouseout = () => {
+      bookMenu.onmouseleave = () => {
         bookMenu.classList.toggle("sub-nav--display");
       };
     },
@@ -216,7 +212,7 @@ export default {
 
       tripsMenu.classList.toggle("sub-nav--display");
 
-      tripsMenu.onmouseout = () => {
+      tripsMenu.onmouseleave = () => {
         tripsMenu.classList.toggle("sub-nav--display");
       };
     },
@@ -226,7 +222,7 @@ export default {
 
       experienceMenu.classList.toggle("sub-nav--display");
 
-      experienceMenu.onmouseout = () => {
+      experienceMenu.onmouseleave = () => {
         experienceMenu.classList.toggle("sub-nav--display");
       };
     },

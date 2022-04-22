@@ -1,14 +1,18 @@
 <template>
-  <div class="fix-view">
-    <img alt="Vue logo" src="../assets/logo.png">
+
+  <div>
+    <Hero/>
+    <Dashboard />
   </div>
 </template>
 
 <script>
+import Hero from '@/components/Hero.vue'
+import Dashboard from '@/components/Dashboard.vue'
 
 export default {
   name: 'HomeView',
-  components: {
-  }
+  components: {Hero, Dashboard}
 }
-</script>
+
+    Hero</script>
