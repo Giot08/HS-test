@@ -26,13 +26,16 @@
 
         <div class="form-flex">
           <input
-            id="from"
+            readonly
+            @focus="flightList('show-from')"
             type="text"
             v-model="Ticket.From"
             placeholder="From"
           />
 
           <input
+            readonly
+            @focus="flightList('show-to')"
             type="text"
             v-if="Ticket.Trip === 'return'"
             v-model="Ticket.To"
@@ -134,9 +137,14 @@
         <button @click="bookNow" class="book--btn">Book now</button>
       </form>
 
-      <select class="flightsFrom hide" v-model="Ticket.From">
-        <option value="" disabled selected>Origin: {{ Ticket.From }}</option>
+      <select
+        @mouseout="flightList('no-show-from')"
+        class="flightsFrom hide"
+        v-model="Ticket.From"
+      >
+      <option value="" disabled selected>Origin: {{ Ticket.From }}</option>
         <option
+        
           class="country-data"
           v-for="country in countries"
           :key="country.country"
@@ -146,13 +154,17 @@
         </option>
       </select>
 
-      <select class="flightsTo hide" v-model="Ticket.To">
-        <option value="" disabled selected>Destination: {{ Ticket.To }}</option>
+      <select
+        @mouseout="flightList('no-show-to')"
+        class="flightsTo hide"
+        v-model="Ticket.To"
+      >
+      <option value="" disabled selected>Destination: {{ Ticket.To }}</option>
         <option
           class="country-data"
           v-for="country in countries"
           :key="country.country"
-          :value="`(${country.alpha3Code}) - ${country.capital},  ${country.name})`"
+          :value="`(${country.alpha3Code}) - ${country.capital} Airport, ${country.name}`"
         >
           <CountryData :country="country" />
         </option>
@@ -163,7 +175,6 @@
 
 <script>
 import CountryData from "./CountryData.vue";
-import { ref } from "vue";
 import { computed, onMounted } from "@vue/runtime-core";
 import { useStore } from "vuex";
 
@@ -191,26 +202,26 @@ export default {
     };
   },
 
-  mounted() {
-    const from = document.getElementById("from");
-    const fromList = document.querySelector(".flightsFrom");
-
-    from.onfocus = () => {
-      fromList.classList.remove("hide");
-    };
-    window.onchange = () => {
-      fromList.classList.add("hide");
-    };
-    window.onscroll = () => {
-      fromList.classList.add("hide");
-    };
-  },
   methods: {
     bookNow() {
       if (this.Ticket.From === this.Ticket.To) {
         alert("Origin and destination have to be different!");
       } else {
         console.log(this.Ticket);
+      }
+    },
+    flightList(x) {
+      const ToDo = x;
+      const fromList = document.querySelector(".flightsFrom");
+      const toList = document.querySelector(".flightsTo");
+      if (ToDo === "show-from") {
+        fromList.classList.remove("hide");
+      } else if (ToDo === "show-to") {
+        toList.classList.remove("hide");
+      } else if (ToDo === "no-show-to") {
+        toList.classList.add("hide");
+      } else if (ToDo === "no-show-from") {
+        fromList.classList.add("hide");
       }
     },
     adultQTY(x) {
@@ -254,20 +265,15 @@ export default {
     },
   },
   setup() {
-    const texto = ref("");
     const store = useStore();
     const countries = computed(() => {
       return store.getters.topPaisesPoblacion;
     });
-    const procesarInput = () => {
-      console.log(texto.value);
-      store.dispatch("filtroNombre", texto.value);
-    };
     onMounted(async () => {
       await store.dispatch("getPaises");
       await store.dispatch("filtrarRegion");
     });
-    return { countries, texto, procesarInput };
+    return { countries };
   },
 };
 </script>
