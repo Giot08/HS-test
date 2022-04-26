@@ -22,9 +22,12 @@
         </p>
       </div>
     </nav>
+    <div class="dashboard">
+
     <Book v-show="book" />
     <MyTrips v-show="trip" />
     <CheckIn v-show="check" />
+    </div>
   </div>
 </template>
 

@@ -43,6 +43,10 @@ export default createStore({
       state.Ticket = state.Tickets.find(item => item.id === payload)
     },
   },
+  delete(state, payload) {
+    state.Tickets = state.Tickets.filter(item => item.id !== payload)
+    localStorage.setItem('Tickets', JSON.stringify(state.Tickets))
+  },
   actions: {
     loadLocalStorage({ commit }) {
       if (localStorage.getItem('Tickets')) {
@@ -69,6 +73,9 @@ export default createStore({
     setTicket({ commit }, Tickets) {
       commit('saveTicket', Tickets)
     },
+  },
+  deleteBook({ commit }, id) {
+    commit('delete', id)
   },
   getters: {
     countrySort(state) {

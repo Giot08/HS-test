@@ -3,6 +3,9 @@
     margin: 0;
     font-family: var(--text);
 }
+body{
+    background-color: var(--mainColor);
+}
 .router-link {
     text-decoration: none;
 }

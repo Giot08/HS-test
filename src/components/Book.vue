@@ -220,6 +220,7 @@ export default {
 
         this.setTicket(this.Ticket);
         alert("book saved successfully");
+        window.location.reload()
         return (
           (this.Ticket.id = ""),
           (this.Ticket.From = ""),
