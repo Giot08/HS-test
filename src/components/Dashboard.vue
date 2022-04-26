@@ -202,6 +202,7 @@ export default {
           Childs: 0,
           Infants: 0,
         },
+        Check: false,
       },
     };
   },
@@ -211,10 +212,20 @@ export default {
     bookNow() {
       if (this.Ticket.From === this.Ticket.To) {
         alert("Origin and destination have to be different!");
+      } else if (this.Ticket.Trip === "return" && this.Ticket.To === "") {
+        alert("Please add a destination!");
+      } else if (
+        this.Ticket.Trip === "return" &&
+        this.Ticket.Date.Return === ""
+      ) {
+        alert("Please add a return date!");
+      } else if (this.Ticket.Date.Depart === "") {
+        alert("Please add a depart date!");
       } else {
         (this.Ticket.id = shortid.generate()), console.log(this.Ticket);
+
         this.setTicket(this.Ticket);
-        alert('book saved successfully')
+        alert("book saved successfully");
         return (
           (this.Ticket.id = ""),
           (this.Ticket.From = ""),
