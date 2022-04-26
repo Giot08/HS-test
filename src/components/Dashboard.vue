@@ -59,7 +59,7 @@
             <div>
               <label for="">Depart</label>
               <input
-                v-model="Ticket.Schedule.Depart"
+                v-model="Ticket.Date.Depart"
                 class="dashboard__dates--input"
                 min="2022-04-22"
                 max="2023-04-22"
@@ -69,7 +69,7 @@
             <div v-if="Ticket.Trip === 'return'">
               <label for="">Return</label>
               <input
-                v-model="Ticket.Schedule.Return"
+                v-model="Ticket.Date.Return"
                 class="dashboard__dates--input"
                 min="2022-04-22"
                 max="2023-04-22"
@@ -142,9 +142,8 @@
         class="flightsFrom hide"
         v-model="Ticket.From"
       >
-      <option value="" disabled selected>Origin: {{ Ticket.From }}</option>
+        <option value="" disabled selected>Origin: {{ Ticket.From }}</option>
         <option
-        
           class="country-data"
           v-for="country in countries"
           :key="country.country"
@@ -159,7 +158,7 @@
         class="flightsTo hide"
         v-model="Ticket.To"
       >
-      <option value="" disabled selected>Destination: {{ Ticket.To }}</option>
+        <option value="" disabled selected>Destination: {{ Ticket.To }}</option>
         <option
           class="country-data"
           v-for="country in countries"
@@ -189,7 +188,7 @@ export default {
         To: "",
         Trip: "",
         Class: "",
-        Schedule: {
+        Date: {
           Depart: "",
           Return: "",
         },
@@ -208,6 +207,17 @@ export default {
         alert("Origin and destination have to be different!");
       } else {
         console.log(this.Ticket);
+        return (
+          (this.Ticket.From = ""),
+          (this.Ticket.To = ""),
+          (this.Ticket.Trip = ""),
+          (this.Ticket.Class = ""),
+          (this.Ticket.Date.Depart = ""),
+          (this.Ticket.Date.Return = ""),
+          (this.Ticket.Passenger.Adults = 1),
+          (this.Ticket.Passenger.Childs = 0),
+          (this.Ticket.Passenger.Infants = 0)
+        );
       }
     },
     flightList(x) {
