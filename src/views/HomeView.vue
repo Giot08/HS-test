@@ -1,18 +1,23 @@
 <template>
-
   <div>
-    <Hero/>
+    <Hero />
     <Dashboard />
   </div>
 </template>
 
 <script>
-import Hero from '@/components/Hero.vue'
-import Dashboard from '@/components/Dashboard.vue'
+import { mapActions } from "vuex";
+import Hero from "@/components/Hero.vue";
+import Dashboard from "@/components/Dashboard.vue";
 
 export default {
-  name: 'HomeView',
-  components: {Hero, Dashboard}
-}
-
-    Hero</script>
+  name: "HomeView",
+  components: { Hero, Dashboard },
+  methods: {
+    ...mapActions(["loadLocalStorage"]),
+  },
+  created() {
+    this.loadLocalStorage();
+  },
+};
+</script>

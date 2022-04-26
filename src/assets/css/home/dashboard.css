@@ -153,7 +153,7 @@
   top: 167px;
   background-color: white;
   width: 252px;
-  height: 40px;
+  height: 50px;
 }
 .flightsFrom option{
   max-width: 250px;
@@ -169,17 +169,7 @@
 .country-data {
   max-width: 250px;
   color: var(--mainColor);
-  font-size: 20px;
+  font-size: 16px;
   cursor: pointer;
   border-bottom: 1px solid gray;
-}
-.country-data .fa-location-dot {
-  margin-right: 5px;
-}
-.country-data img {
-  width: 20px;
-  margin-left: 5px;
-}
-.country-data:hover {
-  background-color: #e7e7e7;
 }

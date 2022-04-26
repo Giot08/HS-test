@@ -134,48 +134,52 @@
             </div>
           </div>
         </div>
+        <select
+          @mouseout="flightList('no-show-from')"
+          class="flightsFrom hide"
+          v-model="Ticket.From"
+        >
+          <option value="" disabled selected>Origin: {{ Ticket.From }}</option>
+          <option
+            class="country-data"
+            v-for="country in countries"
+            :key="country.country"
+            :value="`(${country.alpha3Code}) - ${country.capital} Airport, ${country.name}`"
+          >
+            <CountryData :country="country" />
+          </option>
+        </select>
+
+        <select
+          @mouseout="flightList('no-show-to')"
+          class="flightsTo hide"
+          v-model="Ticket.To"
+        >
+          <option value="" disabled selected>
+            Destination: {{ Ticket.To }}
+          </option>
+          <option
+            class="country-data"
+            v-for="country in countries"
+            :key="country.country"
+            :value="`(${country.alpha3Code}) - ${country.capital} Airport, ${country.name}`"
+          >
+            <CountryData :country="country" />
+          </option>
+        </select>
+
         <button @click="bookNow" class="book--btn">Book now</button>
       </form>
-
-      <select
-        @mouseout="flightList('no-show-from')"
-        class="flightsFrom hide"
-        v-model="Ticket.From"
-      >
-        <option value="" disabled selected>Origin: {{ Ticket.From }}</option>
-        <option
-          class="country-data"
-          v-for="country in countries"
-          :key="country.country"
-          :value="`(${country.alpha3Code}) - ${country.capital} Airport, ${country.name}`"
-        >
-          <CountryData :country="country" />
-        </option>
-      </select>
-
-      <select
-        @mouseout="flightList('no-show-to')"
-        class="flightsTo hide"
-        v-model="Ticket.To"
-      >
-        <option value="" disabled selected>Destination: {{ Ticket.To }}</option>
-        <option
-          class="country-data"
-          v-for="country in countries"
-          :key="country.country"
-          :value="`(${country.alpha3Code}) - ${country.capital} Airport, ${country.name}`"
-        >
-          <CountryData :country="country" />
-        </option>
-      </select>
     </div>
   </div>
 </template>
 
 <script>
 import CountryData from "./CountryData.vue";
+
 import { computed, onMounted } from "@vue/runtime-core";
-import { useStore } from "vuex";
+import { useStore, mapActions } from "vuex";
+const shortid = require("shortid");
 
 export default {
   components: {
@@ -184,6 +188,7 @@ export default {
   data() {
     return {
       Ticket: {
+        id: "",
         From: "",
         To: "",
         Trip: "",
@@ -202,12 +207,16 @@ export default {
   },
 
   methods: {
+    ...mapActions(["setTicket"]),
     bookNow() {
       if (this.Ticket.From === this.Ticket.To) {
         alert("Origin and destination have to be different!");
       } else {
-        console.log(this.Ticket);
+        (this.Ticket.id = shortid.generate()), console.log(this.Ticket);
+        this.setTicket(this.Ticket);
+        alert('book saved successfully')
         return (
+          (this.Ticket.id = ""),
           (this.Ticket.From = ""),
           (this.Ticket.To = ""),
           (this.Ticket.Trip = ""),
