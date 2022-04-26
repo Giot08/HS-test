@@ -277,11 +277,11 @@ export default {
   setup() {
     const store = useStore();
     const countries = computed(() => {
-      return store.getters.topPaisesPoblacion;
+      return store.getters.countrySort;
     });
     onMounted(async () => {
-      await store.dispatch("getPaises");
-      await store.dispatch("filtrarRegion");
+      await store.dispatch("getCountry");
+      await store.dispatch("capitalFilter");
     });
     return { countries };
   },

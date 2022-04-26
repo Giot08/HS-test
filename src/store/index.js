@@ -2,47 +2,37 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    paises: [],
-    paisesFiltrados: []
+    countries: [],
+    countriesFilter: []
   },
   mutations: {
-    setPaises(state, payload) {
-      state.paises = payload
+    setCountry(state, payload) {
+      state.countries = payload
     },
-    setPaisesFiltrados(state, payload) {
-      state.paisesFiltrados = payload
+    setCountryFilter(state, payload) {
+      state.countriesFilter = payload
     }
   },
   actions: {
-    async getPaises({ commit }) {
+    async getCountry({ commit }) {
       try {
         const res = await fetch('db/flights_min.json')
         const data = await res.json()
         // console.log(data)
-        commit('setPaises', data)
+        commit('setCountry', data)
       } catch (error) {
         console.log(error)
       }
     },
-    filtrarRegion({ commit, state }) {
-      const filtro = state.paises
-      commit('setPaisesFiltrados', filtro)
+    capitalFilter({ commit, state }) {
+      const filtro = state.countries
+      commit('setCountryFilter', filtro)
     },
-    filtroNombre({ commit, state }, texto) {
-      const textoCliente = texto.toLowerCase()
-      const filtro = state.paises.filter(pais => {
-        const textoApi = pais.capital.toLowerCase()
-        if (textoApi.includes(textoCliente)) {
-          return pais
-        }
-      })
-      commit('setPaisesFiltrados', filtro)
-    }
   },
   getters: {
-    topPaisesPoblacion(state) {
-      return state.paisesFiltrados.sort((a, b) =>
-        a.capital < b.capital ? -1 : 1
+    countrySort(state) {
+      return state.countriesFilter.sort((a, b) =>
+        a.capital > b.capital ? 1 : -1
       )
     }
   },
